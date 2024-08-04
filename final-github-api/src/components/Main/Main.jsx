@@ -14,13 +14,18 @@ export default function Main() {
   const [selectedUser, setSelectedUser] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const fetchUsersData = async () => {
     if (username.trim() === "") {
       setUsers([]);
       return;
     }
 
+    setIsLoading(true);
+
     try {
+      setUsers([]);
       const usersData = await fetchUsers(username);
 
       const usersWithRepos = await Promise.all(
@@ -40,6 +45,8 @@ export default function Main() {
       setCurrentPage(1);
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -110,27 +117,31 @@ export default function Main() {
 
       {/* Контент */}
       <div className={styles.container}>
-        {currentUsers.map((user) => (
-          <div
-            key={user.id}
-            className={styles.userItem}
-            onClick={() => openModalUser(user)}
-          >
-            <img
-              src={user.avatar_url}
-              alt="userImg"
-              className={styles.userImg}
-            ></img>
-            <div className={styles.userInfo}>
-              <div className={styles.username}>{user.login}</div>
-              <div className={styles.infoLine}></div>
+        {isLoading ? (
+          <div className={styles.loader}></div>
+        ) : (
+          currentUsers.map((user) => (
+            <div
+              key={user.id}
+              className={styles.userItem}
+              onClick={() => openModalUser(user)}
+            >
+              <img
+                src={user.avatar_url}
+                alt="userImg"
+                className={styles.userImg}
+              ></img>
+              <div className={styles.userInfo}>
+                <div className={styles.username}>{user.login}</div>
+                <div className={styles.infoLine}></div>
 
-              <div className={styles.userDescription}>
-                Кол-во репозиториев: {user?.repos.length}
+                <div className={styles.userDescription}>
+                  Кол-во репозиториев: {user?.repos.length}
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))
+        )}
       </div>
 
       <div className={styles.pagination}>
