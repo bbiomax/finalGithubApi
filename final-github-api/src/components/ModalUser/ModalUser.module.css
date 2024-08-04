@@ -1,0 +1,108 @@
+.wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal {
+  color: #e6edf3;
+  width: 800px;
+  height: 450px;
+  background: #0d1117;
+  border: 1px solid #353941;
+  border-radius: 10px;
+  padding: 20px;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.headerModal {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  padding-right: 10px;
+  cursor: pointer;
+}
+
+.closeSvg {
+  border: 1px solid #353941;
+  padding: 10px;
+  border-radius: 10px;
+  transition: 0.2s;
+}
+
+.closeSvg:hover {
+  border-color: #63676f;
+}
+
+.headerLine {
+  width: 100%;
+  height: 1px;
+  background: #353941;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 50px;
+}
+
+.userInfoBox {
+  display: flex;
+  gap: 40px;
+}
+
+.userView {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding-top: 20px;
+}
+
+.userImg {
+  width: 60px;
+  border-radius: 100px;
+}
+
+.userId {
+  font-size: 13px;
+}
+
+.userDescription {
+  display: flex;
+  flex-direction: column;
+}
+
+.sliderBox {
+  width: 700px;
+  background: #090d11;
+  border: 1px solid #353941;
+  border-radius: 10px;
+  height: 150px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding-right: 50px;
+  padding-left: 50px;
+  box-sizing: border-box;
+}
+
+.slider {
+  text-align: center;
+  width: 100%;
+}
