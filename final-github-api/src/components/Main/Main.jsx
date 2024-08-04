@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import styles from "./Main.module.css";
 import ModalUser from "../ModalUser/ModalUser";
 import { fetchUserRepos, fetchUsers } from "../../api/api";
+import Search from "../Search/Search";
+import Filters from "../Filters/Filters";
+import Pagination from "../Pagination/Pagination";
 
 export default function Main() {
   const [username, setUsername] = useState("");
@@ -59,7 +62,6 @@ export default function Main() {
   };
 
   const openModalUser = (user) => {
-    console.log(user);
     setSelectedUser(user);
     setIsModalOpen(true);
   };
@@ -77,43 +79,14 @@ export default function Main() {
   return (
     <>
       {/* Поиск */}
-      <div className={styles.searchContainer}>
-        <div onClick={handleSearch} className={styles.searchImg}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            className={styles.searchImgSvg}
-          >
-            <path
-              fillRule="evenodd"
-              d="M10.5 3.75a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0 0 0-13.5ZM2.25 10.5a8.25 8.25 0 1 1 14.59 5.28l4.69 4.69a.75.75 0 1 1-1.06 1.06l-4.69-4.69A8.25 8.25 0 0 1 2.25 10.5Z"
-              clipRule="evenodd"
-            />
-          </svg>
-        </div>
-        <input
-          className={styles.inputSearch}
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          placeholder="Введите имя пользователя"
-        />
-      </div>
+      <Search
+        handleSearch={handleSearch}
+        username={username}
+        setUsername={setUsername}
+      />
 
       {/* Фильтры */}
-      <div className={styles.filterContainer}>
-        <span>Filters for Repositories:</span>
-        <div className={styles.filtersBox}>
-          <select
-            onChange={(e) => setSortOrder(e.target.value)}
-            value={sortOrder}
-          >
-            <option value="asc">По возрастанию</option>
-            <option value="desc">По убыванию</option>
-          </select>
-        </div>
-      </div>
+      <Filters setSortOrder={setSortOrder} sortOrder={sortOrder} />
 
       {/* Контент */}
       <div className={styles.container}>
@@ -144,23 +117,11 @@ export default function Main() {
         )}
       </div>
 
-      <div className={styles.pagination}>
-        {Array.from({ length: totalPages }, (_, index) => {
-          return (
-            <button
-              key={index + 1}
-              onClick={() => setCurrentPage(index + 1)}
-              className={
-                currentPage === index + 1
-                  ? styles.activePageButton
-                  : styles.pageButton
-              }
-            >
-              {index + 1}
-            </button>
-          );
-        })}
-      </div>
+      <Pagination
+        totalPages={totalPages}
+        setCurrentPage={setCurrentPage}
+        currentPage={currentPage}
+      />
 
       {isModalOpen && (
         <ModalUser user={selectedUser} closeModalUser={closeModalUser} />
